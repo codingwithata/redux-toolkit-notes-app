@@ -13,10 +13,29 @@ const initialState = {
 
   const options = {
     name: 'notes',
-    initialState, // shorthand for `initialState: initialState,
-    reducers: {},
+    initialState,
+    reducers: {
+      addNote: (state, action) => {
+        state.notes.push({ id: state.notes.length + 1, note: action.payload });
+      },
+      removeNote: (state, action) => {
+        state.notes.splice(
+          state.notes.findIndex((note) => note.id === action.payload),
+          1
+        );
+      },
+    },
   };
   
   const notesSlice = createSlice(options);
+
+  console.log(notesSlice);
+  console.log(notesSlice.actions.addNote());
+  console.log(
+    notesSlice.actions.addNote(
+      'A slice reducer updates a portion of the application state.'
+    )
+  );
+
   
   export default notesSlice.reducer;
